@@ -255,7 +255,7 @@ const Main = () => (
 Main.navigationOptions = ({ navigation }) => ({
   title: 'Sua biblioteca',
   headerRight: (
-    <TouchableOpacity style={styles.headerRight} onpress={() => navigation.navitgate('Search')}>
+    <TouchableOpacity style={styles.headerRight} onPress={() => navigation.navigate('Search')}>
       <Icon name="search" size={24} color="#fff" />
     </TouchableOpacity>
   ),
