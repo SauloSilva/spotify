@@ -1,5 +1,3 @@
-import Color from 'color';
-
 export default {
   white: '#FFF',
   lighter: '#EEE',
