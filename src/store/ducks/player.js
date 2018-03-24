@@ -12,6 +12,8 @@ const initalState = Immutable({
 
 export default function player(state = initalState, action) {
   switch (action.type) {
+    case Types.SET_SONG_REQUEST:
+      return { ...state, currentSong: action.payload.song };
     default:
       return state;
   }
