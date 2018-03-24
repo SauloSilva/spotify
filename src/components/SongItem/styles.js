@@ -28,6 +28,14 @@ const styles = StyleSheet.create({
   play: {
     color: colors.regular,
   },
+
+  loading: {
+    marginRight: 2,
+  },
+
+  active: {
+    color: colors.active,
+  },
 });
 
 export default styles;
