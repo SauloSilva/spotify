@@ -24,7 +24,7 @@ const Album = ({ navigation }) => {
 
       <FlatList
         data={album.songs}
-        keyExtractor={(song) => { String(song.id); }}
+        keyExtractor={song => String(song.id)}
         renderItem={({ item }) => <SongItem song={item} />}
       />
     </View>
