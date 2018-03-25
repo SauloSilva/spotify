@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import RNSound from 'react-native-sound/sound';
 
 import { Creators as PlayerActions } from 'store/ducks/player';
@@ -16,6 +16,34 @@ export function* pause() {
 export function* play() {
   try {
     yield call(Sound.play);
+  } catch (error) {
+    console.tron.log(error);
+  }
+}
+
+export function* next() {
+  try {
+    const player = yield select(state => state.player);
+    const currentIndex = player.list.findIndex(song => song.id === player.currentSong.id);
+    const nextSong = player.list[currentIndex + 1];
+
+    if (nextSong) {
+      yield put(PlayerActions.setSongRequest(nextSong, player.list));
+    }
+  } catch (error) {
+    console.tron.log(error);
+  }
+}
+
+export function* previous() {
+  try {
+    const player = yield select(state => state.player);
+    const currentIndex = player.list.findIndex(song => song.id === player.currentSong.id);
+    const nextSong = player.list[currentIndex - 1];
+
+    if (nextSong) {
+      yield put(PlayerActions.setSongRequest(nextSong, player.list));
+    }
   } catch (error) {
     console.tron.log(error);
   }

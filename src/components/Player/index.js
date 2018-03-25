@@ -9,7 +9,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './styles';
 
-const Player = ({ player, play, pause }) => {
+const Player = ({
+  player,
+  play,
+  pause,
+  next,
+  previous,
+}) => {
   if (player.currentSong.id === undefined) return null;
 
   const pressFunction = player.paused ? play : pause;
@@ -23,7 +29,7 @@ const Player = ({ player, play, pause }) => {
       </View>
 
       <View style={styles.controls}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={previous}>
           <Icon name="skip-previous" size={24} style={styles.controlIcon} />
         </TouchableOpacity>
 
@@ -31,7 +37,7 @@ const Player = ({ player, play, pause }) => {
           <Icon name={icon} size={36} style={styles.controlIcon} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={next}>
           <Icon name="skip-next" size={24} style={styles.controlIcon} />
         </TouchableOpacity>
       </View>
@@ -47,6 +53,8 @@ Player.propTypes = {
   }).isRequired,
   play: PropTypes.func.isRequired,
   pause: PropTypes.func.isRequired,
+  next: PropTypes.func.isRequired,
+  previous: PropTypes.func.isRequired,
 };
 
 const mapsStateToProps = state => ({
