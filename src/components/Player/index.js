@@ -1,37 +1,54 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as PlayerActions } from 'store/ducks/player';
 
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './styles';
 
-const currentSong = {
-  title: 'Papercut',
-  author: 'Linkin Park',
+const Player = ({ player }) => {
+  if (player.currentSong.id === undefined) return null;
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.currentSong}>
+        <Text style={styles.title}>{player.currentSong.title}</Text>
+        <Text style={styles.author}>{player.currentSong.author}</Text>
+      </View>
+
+      <View style={styles.controls}>
+        <TouchableOpacity onPress={() => {}}>
+          <Icon name="skip-previous" size={24} style={styles.controlIcon} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.play} onPress={() => {}}>
+          <Icon name="play-circle-filled" size={36} style={styles.controlIcon} />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {}}>
+          <Icon name="skip-next" size={24} style={styles.controlIcon} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 };
 
-const Player = () => (
-  <View style={styles.container}>
-    <View style={styles.currentSong}>
-      <Text style={styles.title}>{currentSong.title}</Text>
-      <Text style={styles.author}>{currentSong.author}</Text>
-    </View>
+Player.propTypes = {
+  player: PropTypes.shape({
+    currentSong: PropTypes.shape({
+      id: PropTypes.number,
+    }),
+  }).isRequired,
+};
 
-    <View style={styles.controls}>
-      <TouchableOpacity onPress={() => {}}>
-        <Icon name="skip-previous" size={24} style={styles.controlIcon} />
-      </TouchableOpacity>
+const mapsStateToProps = state => ({
+  player: state.player,
+});
 
-      <TouchableOpacity style={styles.play} onPress={() => {}}>
-        <Icon name="play-circle-filled" size={36} style={styles.controlIcon} />
-      </TouchableOpacity>
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(PlayerActions, dispatch);
 
-      <TouchableOpacity onPress={() => {}}>
-        <Icon name="skip-next" size={24} style={styles.controlIcon} />
-      </TouchableOpacity>
-    </View>
-  </View>
-);
-
-
-export default Player;
+export default connect(mapsStateToProps, mapDispatchToProps)(Player);
