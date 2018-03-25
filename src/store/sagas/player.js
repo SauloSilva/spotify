@@ -5,6 +5,14 @@ import { Creators as PlayerActions } from 'store/ducks/player';
 
 const Sound = new RNSound();
 
+export function* pause() {
+  try {
+    yield call(Sound.pause);
+  } catch (error) {
+    console.tron.log(error);
+  }
+}
+
 export function* play() {
   try {
     yield call(Sound.play);
