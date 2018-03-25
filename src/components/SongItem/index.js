@@ -13,28 +13,36 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './styles';
 
-const SongItem = ({ song, player, onPress }) => (
-  <TouchableOpacity key={song} style={styles.container} onPress={onPress} >
-    <View style={styles.info}>
-      <Text
-        style={[
-          styles.title,
-          (player.currentSong.id === song.id) ? styles.active : {},
-        ]}
-      >
-        {song.title}
-      </Text>
+const SongItem = ({ song, player, onPress }) => {
+  let icon = 'play-circle-outline';
 
-      <Text style={styles.author}>{song.author}</Text>
-    </View>
+  if (player.currentSong.id === song.id) {
+    icon = player.paused ? 'play-circle-outline' : 'pause-circle-outline';
+  }
 
-    { player.loadingId === song.id
-      ? <ActivityIndicator size="small" color="#999" style={styles.loading} />
-      : <Icon name="play-circle-outline" size={24} style={styles.play} />
-    }
+  return (
+    <TouchableOpacity key={song} style={styles.container} onPress={onPress} >
+      <View style={styles.info}>
+        <Text
+          style={[
+            styles.title,
+            (player.currentSong.id === song.id) ? styles.active : {},
+          ]}
+        >
+          {song.title}
+        </Text>
 
-  </TouchableOpacity>
-);
+        <Text style={styles.author}>{song.author}</Text>
+      </View>
+
+      { player.loadingId === song.id
+        ? <ActivityIndicator size="small" color="#999" style={styles.loading} />
+        : <Icon name={icon} size={24} style={styles.play} />
+      }
+
+    </TouchableOpacity>
+  );
+};
 
 SongItem.propTypes = {
   song: PropTypes.shape({
