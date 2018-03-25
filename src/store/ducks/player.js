@@ -10,6 +10,7 @@ export const Types = {
 
 const initalState = Immutable({
   currentSong: {},
+  list: [],
   loadingId: null,
   paused: false,
 });
@@ -21,6 +22,7 @@ export default function player(state = initalState, action) {
     case Types.SET_SONG_SUCCESS:
       return {
         ...state,
+        list: action.payload.list,
         currentSong: action.payload.song,
         loadingId: null,
         error: null,
@@ -48,14 +50,14 @@ export default function player(state = initalState, action) {
 }
 
 export const Creators = {
-  setSongRequest: song => ({
+  setSongRequest: (song, list) => ({
     type: Types.SET_SONG_REQUEST,
-    payload: { song },
+    payload: { song, list },
   }),
 
-  setSongSuccess: song => ({
+  setSongSuccess: (song, list) => ({
     type: Types.SET_SONG_SUCCESS,
-    payload: { song },
+    payload: { song, list },
   }),
 
   setSongFailure: error => ({
